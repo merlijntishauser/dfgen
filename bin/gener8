@@ -2,16 +2,15 @@
 
 import click
 
-
 class Dockerfile:
 
     linux_type = 'alpine'
-    docker_image = ''
     base_defaults = {
         'alpine': '3.6',
         'ubuntu': '16.04',
         'debian': 'buster'
     }
+    docker_image = ''
 
     def __init__(self):
         pass
@@ -21,7 +20,7 @@ class Dockerfile:
         self.docker_image = click.prompt('Base Docker Image', default=self.base_defaults[linux_type])
 
 @click.command()
-@click.option('--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']))
+@click.option('--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']), prompt=True)
 def cli(linux_type):
     """
     A little tool to generate a Dockerfile.
