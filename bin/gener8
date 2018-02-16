@@ -1,51 +1,25 @@
 #!/usr/bin/env python3
 
 import click
-from jinja2 import Environment, PackageLoader, BaseLoader, meta, StrictUndefined
-from jinja2.exceptions import UndefinedError
-
-class Dockerfile:
-
-    linux_type = 'alpine'
-    base_defaults = {
-        'alpine': '3.6',
-        'ubuntu': '16.04',
-        'debian': 'buster'
-    }
-    template_name = 'Dockerfile'
-
-    template_variables = {
-        "docker_image": ''
-    }
-
-    def __init__(self):
-        pass
-
-    def set_linux_type(self, linux_type):
-        self.linux_type = linux_type
-        self.template_variables["docker_image"] = click.prompt('Base Docker Image', default=self.base_defaults[linux_type])
-
-    def render_template(self):
-        jinja_environment = Environment(
-            loader=PackageLoader('gener8', 'templates'),
-            trim_blocks=True,
-            keep_trailing_newline=True,
-            undefined=StrictUndefined
-        )
-        return jinja_environment.get_template('%s.jinja2' % self.template_name).render(self.template_variables)
+from gener8.dockerfile import Dockerfile
 
 @click.command()
-@click.option('--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']), prompt=True)
+@click.option('--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']), prompt=True, default='alpine')
 def cli(linux_type):
     """
     A little tool to generate a Dockerfile.
     """
     docker_file = Dockerfile()
-    docker_file.set_linux_type(linux_type)
+    default_image = docker_file.set_linux_type(linux_type)
+
+    docker_image = click.prompt('Base Docker Image', default=default_image)
+    docker_file.set_base_image(docker_image)
+
+    print(f"Creating a Dockerfile with {docker_file.linux_type} with {docker_image} as base image: ")
     template = docker_file.render_template()
-    docker_image = docker_file.template_variables["docker_image"]
-    print(f"Creating a Dockerfile with {docker_file.linux_type} with {docker_image}")
-    print(template)
+
+    print(f"Writing Docker file with contents: \n\n{template}")
+    docker_file.write_template()
 
 if __name__ == '__main__':
     cli()
