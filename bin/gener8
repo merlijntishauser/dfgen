@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+
+import click
+
+
+class Dockerfile:
+
+    linux_type = 'alpine'
+    docker_image = ''
+    base_defaults = {
+        'alpine': '3.6',
+        'ubuntu': '16.04',
+        'debian': 'buster'
+    }
+
+    def __init__(self):
+        pass
+
+    def set_linux_type(self, linux_type):
+        self.linux_type = linux_type
+        self.docker_image = click.prompt('Base Docker Image', default=self.base_defaults[linux_type])
+
+@click.command()
+@click.option('--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']))
+def cli(linux_type):
+    """
+    A little tool to generate a Dockerfile.
+    """
+    docker_file = Dockerfile()
+    docker_file.set_linux_type(linux_type)
+    print(f"Creating a Dockerfile with {docker_file.linux_type} with {docker_file.docker_image}")
+
+if __name__ == '__main__':
+    cli()
