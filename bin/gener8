@@ -3,11 +3,30 @@
 import click
 from gener8.dockerfile import Dockerfile
 
-@click.command()
-@click.option('--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']), prompt=True, default='alpine')
-def cli(linux_type):
+class Config(object):
+    def __init__(self):
+        self.verbose = False
+
+
+pass_config = click.make_pass_decorator(Config, ensure=True)
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+
+
+@click.group(context_settings=CONTEXT_SETTINGS)
+@click.option('--verbose', '-v', is_flag=True)
+@pass_config
+def cli(config, verbose):
     """
     A little tool to generate commonly used ci/cd templates like Dockerfiles and kubernetes service definitions.
+    """
+    config.verbose = verbose
+
+@cli.command()
+@click.option('--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']), prompt=True, default='alpine')
+@pass_config
+def docker(config, linux_type):
+    """
+    Docker mode
     """
     docker_file = Dockerfile()
     default_image = docker_file.set_linux_type(linux_type)
@@ -26,6 +45,18 @@ def cli(linux_type):
 
     print(f"Writing Docker file with contents: \n\n{template}")
     docker_file.write_template()
+
+
+@cli.command()
+@pass_config
+def kubernetes(config):
+    """
+    Kubernetes mode
+    """
+    if config.verbose:
+        print("verbose mode on")
+    print('kubernetes')
+    pass
 
 if __name__ == '__main__':
     cli()
