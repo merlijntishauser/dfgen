@@ -15,8 +15,11 @@ class Dockerfile:
     template_name = 'Dockerfile'
 
     template_variables = {
-        "docker_image": ''
+        "docker_image": '',
+        "labels": ''
     }
+
+    labels = {}
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -28,6 +31,18 @@ class Dockerfile:
     def set_base_image(self, docker_image):
         self.template_variables["docker_image"] = docker_image
 
+    def set_maintainer(self, maintainer):
+        if maintainer is not '':
+            self.labels["maintainer"] = 'maintainer=' + maintainer
+
+    def set_description(self, description):
+        if description is not '':
+            self.labels["description"] = 'org.label-schema.description="' + description + '"'
+
+    def _set_labels(self):
+        if len(self.labels) > 0:
+            self.template_variables["labels"] = " \\\n\t".join(self.labels.values())
+
     def render_template(self):
         jinja_environment = Environment(
             loader=PackageLoader('gener8', 'templates/docker'),
@@ -37,6 +52,7 @@ class Dockerfile:
         )
 
         try:
+            self._set_labels()
             return jinja_environment.get_template('%s.jinja2' % self.template_name).render(self.template_variables)
         except UndefinedError as e:
             self.logger.error("Required template variable missing: " + str(e))

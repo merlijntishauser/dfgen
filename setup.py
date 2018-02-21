@@ -5,7 +5,7 @@ from setuptools import setup
 setup(
     name='gener8',
     version='0.1',
-    description='Generates a Dockerfile template based on user input',
+    description='  A little tool to generate commonly used ci/cd templates like Dockerfiles and kubernetes service definitions.',
     packages=[
         'gener8',
         'gener8.templates',

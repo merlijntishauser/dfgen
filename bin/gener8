@@ -7,13 +7,19 @@ from gener8.dockerfile import Dockerfile
 @click.option('--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']), prompt=True, default='alpine')
 def cli(linux_type):
     """
-    A little tool to generate a Dockerfile.
+    A little tool to generate commonly used ci/cd templates like Dockerfiles and kubernetes service definitions.
     """
     docker_file = Dockerfile()
     default_image = docker_file.set_linux_type(linux_type)
 
     docker_image = click.prompt('Base Docker Image', default=default_image)
     docker_file.set_base_image(docker_image)
+
+    docker_maintainer = click.prompt('Maintainer of this dockerfile', default='')
+    docker_file.set_maintainer(docker_maintainer)
+
+    docker_description = click.prompt('Description', default='')
+    docker_file.set_description(docker_description)
 
     print(f"Creating a Dockerfile with {docker_file.linux_type} with {docker_image} as base image: ")
     template = docker_file.render_template()

@@ -1,1 +1,5 @@
-FROM {{ docker_image }}
+FROM    {{ docker_image }}
+
+{% if labels|length > 0 %}
+LABEL   {{ labels }}
+{% endif %}
