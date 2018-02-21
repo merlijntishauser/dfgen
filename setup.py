@@ -8,10 +8,12 @@ setup(
     description='Generates a Dockerfile template based on user input',
     packages=[
         'gener8',
-        'gener8.templates'
+        'gener8.templates',
+        'gener8.templates.docker'
     ],
     package_data={
-        'gener8.templates': ['*.jinja2']
+        'gener8.templates': ['*.jinja2'],
+        'gener8.templates.docker': ['*.jinja2']
     },
     scripts=['bin/gener8'],
     install_requires=[

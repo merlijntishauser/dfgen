@@ -30,7 +30,7 @@ class Dockerfile:
 
     def render_template(self):
         jinja_environment = Environment(
-            loader=PackageLoader('gener8', 'templates'),
+            loader=PackageLoader('gener8', 'templates/docker'),
             trim_blocks=True,
             keep_trailing_newline=True,
             undefined=StrictUndefined
