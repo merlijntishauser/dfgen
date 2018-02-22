@@ -46,7 +46,7 @@ class Dockerfile:
             self.template_variables["labels"] = " \\\n\t".join(self.labels.values())
 
     def set_package_manager(self, add_package_manager):
-        if add_package_manager == 'yes':
+        if add_package_manager:
             self.template_variables["enable_package_manager"] = True
             self.template_variables["package_manager_type"] = 'apt-get'
             if self.linux_type == 'alpine':

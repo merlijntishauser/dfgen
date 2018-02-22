@@ -23,7 +23,6 @@ def cli(config, verbose):
 
 @cli.command()
 @click.option('-l', '--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']), prompt=True, default='alpine')
-# @click.option('-c', '--custom-packages', type=click.Choice(['yes', 'no']), prompt=True, default='no')
 @pass_config
 def docker(config, linux_type):
     """
@@ -32,18 +31,12 @@ def docker(config, linux_type):
     docker_file = Dockerfile()
     default_image = docker_file.set_linux_type(linux_type)
 
-
     docker_image = click.prompt('Base Docker Image', default=default_image)
     docker_file.set_base_image(docker_image)
 
-    docker_maintainer = click.prompt('Maintainer of this dockerfile', default='')
-    docker_file.set_maintainer(docker_maintainer)
-
-    docker_description = click.prompt('Description', default='')
-    docker_file.set_description(docker_description)
-
-    custom_packages = click.prompt('Include additional packages', default='no')
-    docker_file.set_package_manager(custom_packages)
+    docker_file.set_maintainer(click.prompt('Maintainer of this dockerfile', default=''))
+    docker_file.set_description(click.prompt('Description', default=''))
+    docker_file.set_package_manager(click.confirm('Add additional packages'))
 
     if config.verbose:
         print(f"Creating a Dockerfile with {docker_file.linux_type} with {docker_image} as base image: ")
