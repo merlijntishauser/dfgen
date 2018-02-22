@@ -3,6 +3,7 @@ FROM    {{ docker_image }}
 {% if labels|length > 0 %}
 LABEL   {{ labels }}
 {% endif %}
+
 {% if enable_package_manager %}
 {% include package_manager_type + '.jinja2' %}
 {% endif %}

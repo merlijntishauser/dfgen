@@ -6,6 +6,7 @@ from gener8.dockerfile import Dockerfile
 class Config(object):
     def __init__(self):
         self.verbose = False
+        self.write_to_file = False
 
 
 pass_config = click.make_pass_decorator(Config, ensure=True)
@@ -13,13 +14,15 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)
-@click.option('--verbose', '-v', is_flag=True)
+@click.option('--verbose', '-v', is_flag=True, help='enable/disable verbose messages')
+@click.option('--write-to-file', '-w', is_flag=True, default=False, help='write generated template to file')
 @pass_config
-def cli(config, verbose):
+def cli(config, verbose, write_to_file):
     """
     A little tool to generate commonly used ci/cd templates like Dockerfiles and kubernetes service definitions.
     """
     config.verbose = verbose
+    config.write_to_file = write_to_file
 
 @cli.command()
 @click.option('-l', '--linux-type', type=click.Choice(['alpine', 'ubuntu', 'debian']), prompt=True, default='alpine')
@@ -43,11 +46,12 @@ def docker(config, linux_type):
 
     template = docker_file.render_template()
 
-    if config.verbose:
-        print(f"Writing Docker file with contents: \n\n{template}")
+    if config.verbose or not config.write_to_file:
+        print(f"\nDockerfile:\n==================\n{template}")
 
-    file_created = docker_file.write_template()
-    print(f"Dockerfile created: {file_created}")
+    if config.write_to_file:
+        file_created = docker_file.write_template()
+        print(f"Dockerfile created: {file_created}")
 
 @cli.command()
 @pass_config
