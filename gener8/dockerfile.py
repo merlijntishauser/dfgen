@@ -19,7 +19,8 @@ class Dockerfile:
         "labels": '',
         "enable_package_manager": False,
         "package_manager_type": '',
-        "ports": 0
+        "ports": 0,
+        "enable_vcs": False
     }
 
     labels = {}
@@ -42,8 +43,13 @@ class Dockerfile:
         if description is not '':
             self.labels["description"] = 'org.label-schema.description="' + description + '"'
 
+    def set_vcs_url(self, url):
+        if url is not '':
+            self.labels["vcs-url"] = 'org.label-schema.vcs-url="' + url + '"'
+
     def _set_labels(self):
         if len(self.labels) > 0:
+            self.labels["schema-version"] = 'org.label-schema.schema-version="1.0.0-rc1"'
             self.template_variables["labels"] = " \\\n\t".join(self.labels.values())
 
     def set_package_manager(self, add_package_manager):
@@ -56,6 +62,25 @@ class Dockerfile:
     def set_ports(self, ports):
         if ports is not 0:
             self.template_variables["ports"] = ports
+
+    def enable_vcs_in_labels(self, enable_vcs):
+        if enable_vcs:
+            self.template_variables["enable_vcs"] = True
+            self.labels["vcs-ref"] = "org.label-schema.vcs-ref=$VCS_REF"
+            self.labels["build-date"] = "org.label-schema.build-date=$BUILD_DATE"
+
+    @staticmethod
+    def copy_build_hook():
+        file_actions = FileActions(path='output')
+        file_actions.copy_to_path(file_actions.get_current_location() + '/scripts/build.sh', 'hooks', 'build')
+
+    @staticmethod
+    def print_build_hook():
+        file_actions = FileActions(path='output')
+        print("\nBuild hook for the Dockerfile. Copy this to hooks/build relative to the Dockerfile.\n==================\n")
+        build_hook = open(file_actions.get_current_location() + '/scripts/build.sh', 'r')
+        print(build_hook.read())
+        build_hook.close()
 
     def render_template(self):
         jinja_environment = Environment(
@@ -72,5 +97,4 @@ class Dockerfile:
             self.logger.error("Required template variable missing: " + str(e))
 
     def write_template(self):
-        file_actions = FileActions(path='output')
-        return file_actions.write_file('Dockerfile', self.render_template())
+        return FileActions(path='output').write_file('Dockerfile', self.render_template())
