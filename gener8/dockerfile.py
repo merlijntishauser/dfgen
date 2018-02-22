@@ -16,7 +16,9 @@ class Dockerfile:
 
     template_variables = {
         "docker_image": '',
-        "labels": ''
+        "labels": '',
+        "enable_package_manager": False,
+        "package_manager_type": ''
     }
 
     labels = {}
@@ -43,6 +45,13 @@ class Dockerfile:
         if len(self.labels) > 0:
             self.template_variables["labels"] = " \\\n\t".join(self.labels.values())
 
+    def set_package_manager(self, add_package_manager):
+        if add_package_manager == 'yes':
+            self.template_variables["enable_package_manager"] = True
+            self.template_variables["package_manager_type"] = 'apt-get'
+            if self.linux_type == 'alpine':
+                self.template_variables["package_manager_type"] = 'apk'
+
     def render_template(self):
         jinja_environment = Environment(
             loader=PackageLoader('gener8', 'templates/docker'),
@@ -59,4 +68,4 @@ class Dockerfile:
 
     def write_template(self):
         file_actions = FileActions(path='output')
-        file_actions.write_file('Dockerfile', self.render_template())
+        return file_actions.write_file('Dockerfile', self.render_template())

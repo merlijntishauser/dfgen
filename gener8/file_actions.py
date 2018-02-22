@@ -12,8 +12,8 @@ class FileActions:
         pathlib.Path(self.path).mkdir(parents=True, exist_ok=True)
 
     def write_file(self, filename, content):
-        fqfn = str(self.path) + '/' + filename
-        print(fqfn)
-        new_file = open(fqfn, 'w')
+        full_path = str(self.path) + '/' + filename
+        new_file = open(full_path, 'w')
         new_file.write(content)
         new_file.close()
+        return full_path
