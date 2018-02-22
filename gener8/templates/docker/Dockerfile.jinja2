@@ -7,3 +7,7 @@ LABEL   {{ labels }}
 {% if enable_package_manager %}
 {% include package_manager_type + '.jinja2' %}
 {% endif %}
+
+{% if ports > 0 %}
+EXPOSE {{ ports }}
+{% endif %}

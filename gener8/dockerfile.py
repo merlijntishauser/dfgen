@@ -18,7 +18,8 @@ class Dockerfile:
         "docker_image": '',
         "labels": '',
         "enable_package_manager": False,
-        "package_manager_type": ''
+        "package_manager_type": '',
+        "ports": 0
     }
 
     labels = {}
@@ -51,6 +52,10 @@ class Dockerfile:
             self.template_variables["package_manager_type"] = 'apt-get'
             if self.linux_type == 'alpine':
                 self.template_variables["package_manager_type"] = 'apk'
+
+    def set_ports(self, ports):
+        if ports is not 0:
+            self.template_variables["ports"] = ports
 
     def render_template(self):
         jinja_environment = Environment(
