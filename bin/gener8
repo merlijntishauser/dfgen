@@ -40,11 +40,14 @@ def docker(config, linux_type):
     docker_description = click.prompt('Description', default='')
     docker_file.set_description(docker_description)
 
-    print(f"Creating a Dockerfile with {docker_file.linux_type} with {docker_image} as base image: ")
+    if config.verbose:
+        print(f"Creating a Dockerfile with {docker_file.linux_type} with {docker_image} as base image: ")
+
     template = docker_file.render_template()
 
-    print(f"Writing Docker file with contents: \n\n{template}")
-    docker_file.write_template()
+    if config.verbose:
+        print(f"Writing Docker file with contents: \n\n{template}")
+        docker_file.write_template()
 
 
 @cli.command()
@@ -55,7 +58,7 @@ def kubernetes(config):
     """
     if config.verbose:
         print("verbose mode on")
-    print('kubernetes')
+    print('kubernetes mode')
     pass
 
 if __name__ == '__main__':
