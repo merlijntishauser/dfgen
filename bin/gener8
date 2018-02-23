@@ -46,6 +46,7 @@ def docker(config, linux_type):
     docker_file.set_package_manager(click.confirm('Add additional packages'))
 
     docker_file.set_ports(click.prompt('Expose port', type=click.IntRange(0, 65535), default=0))
+    docker_file.set_command(click.prompt('Command to execute in the container', default=''))
 
     if config.verbose:
         print(f"Creating a Dockerfile with {docker_file.linux_type} with {docker_image} as base image: ")

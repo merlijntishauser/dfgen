@@ -17,3 +17,7 @@ LABEL   {{ labels }}
 EXPOSE {{ ports }}
 
 {% endif %}
+
+{% if command|length > 0 %}
+CMD {{ command }}
+{% endif %}

@@ -63,6 +63,10 @@ class Dockerfile:
         if ports is not 0:
             self.template_variables["ports"] = ports
 
+    def set_command(self, command):
+        if len(command) > 1:
+            self.template_variables["command"] = command.split()
+
     def enable_vcs_in_labels(self, enable_vcs):
         if enable_vcs:
             self.template_variables["enable_vcs"] = True
