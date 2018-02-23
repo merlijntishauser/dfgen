@@ -7,6 +7,7 @@ Handles the click calls and methods
 import click
 from gener8.dockerfile import Dockerfile
 
+
 class Config(object):
     """
     Config object for click
@@ -16,13 +17,17 @@ class Config(object):
         self.write_to_file = False
 
 
-
 PASS_CONFIG = click.make_pass_decorator(Config, ensure=True)
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 @click.group(context_settings=CONTEXT_SETTINGS)
-@click.option('--verbose', '-v', is_flag=True, help='enable/disable verbose messages')
+@click.option(
+    '--verbose',
+    '-v',
+    is_flag=True,
+    help='enable/disable verbose messages'
+)
 @click.option(
     '--write-to-file',
     '-w',
@@ -38,6 +43,7 @@ def cli(config, verbose, write_to_file):
     """
     config.verbose = verbose
     config.write_to_file = write_to_file
+
 
 @cli.command()
 @click.option(
@@ -86,6 +92,7 @@ def docker(config, linux_type):
         if enable_vcs:
             docker_file.copy_build_hook()
 
+
 @cli.command()
 @PASS_CONFIG
 def kubernetes(config):
@@ -95,6 +102,7 @@ def kubernetes(config):
     if config.verbose:
         print("verbose mode on")
     print('kubernetes mode')
+
 
 # pylint: disable=no-value-for-parameter
 if __name__ == '__main__':
