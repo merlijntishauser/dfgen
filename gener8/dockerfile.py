@@ -20,7 +20,8 @@ class Dockerfile:
         "enable_package_manager": False,
         "package_manager_type": '',
         "ports": 0,
-        "enable_vcs": False
+        "enable_vcs": False,
+        "command": ''
     }
 
     labels = {}
