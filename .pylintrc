@@ -1,0 +1,17 @@
+## for all available options check: https://github.com/behave/behave.example/blob/master/pylintrc
+
+[MASTER]
+# Profiled execution.
+profile=yes
+
+[REPORTS]
+# Set the output format. Available formats are text, parseable, colorized, msvs
+# (visual studio) and html
+output-format=text
+
+# Tells wether to display a full report or only the messages
+reports=no
+
+[DESIGN]
+# Minimum number of public methods for a class (see R0903).
+min-public-methods=0

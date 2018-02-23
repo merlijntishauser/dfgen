@@ -37,3 +37,7 @@ Just running pylint will break on new python3 syntax, instead use:
 ```
 python3 -m pylint <path>
 ```
+or with reporting:
+```
+python3 -m pylint --reports=yes <path>
+```
