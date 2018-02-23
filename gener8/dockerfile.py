@@ -83,7 +83,7 @@ class Dockerfile:
         """
         :return:
         """
-        if not self.labels:
+        if bool(self.labels):
             self.labels["schema-version"] = 'org.label-schema.schema-version="1.0.0-rc1"'
             self.template_variables["labels"] = " \\\n\t".join(self.labels.values())
 
