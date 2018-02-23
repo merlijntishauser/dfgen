@@ -12,6 +12,20 @@ output-format=text
 # Tells wether to display a full report or only the messages
 reports=no
 
+[FORMAT]
+# Maximum number of characters on a single line.
+max-line-length=120
+
 [DESIGN]
 # Minimum number of public methods for a class (see R0903).
 min-public-methods=0
+
+[SIMILARITIES]
+# Minimum lines number of a similarity.
+min-similarity-lines=4
+
+# Ignore comments when computing similarities.
+ignore-comments=yes
+
+# Ignore docstrings when computing similarities.
+ignore-docstrings=yes
