@@ -41,3 +41,8 @@ or with reporting:
 ```
 python3 -m pylint --reports=yes <path>
 ```
+
+For pep8 compliance use 
+```
+pycodestyle --show-source --show-pep8
+```
