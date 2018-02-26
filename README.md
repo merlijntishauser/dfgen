@@ -25,7 +25,7 @@ Using a virtual environment is recommended.
 
 ## installing locally
 ```
-pip install . --upgrae
+pip install . --upgrade
 ```
 
 ### testing
