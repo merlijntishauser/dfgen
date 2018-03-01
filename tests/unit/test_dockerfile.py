@@ -19,6 +19,12 @@ def test_set_command_splits_string_at_spaces():
     dockerfile.set_command("should --be --splitted")
     assert dockerfile.template_variables["command"] == ['should', '--be', '--splitted']
 
+def test_set_description():
+    dockerfile = Dockerfile()
+    dockerfile.set_description("a description")
+    dockerfile.render_template()
+    assert 'org.label-schema.description="a description"' == dockerfile.labels["description"]
+
 
 def test_setting_description_sets_default_labels():
     dockerfile = Dockerfile()
