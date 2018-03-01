@@ -9,7 +9,7 @@ setup(
     author='Merlijn Tishauser',
     author_email='merlijn@gargleblaster.org',
     url='https://github.com/merlijntishauser/gener8',
-    download_url='https://github.com/peterldowns/mypackage/archive/0.1.tar.gz', # I'll explain this in a second
+    download_url='https://github.com/merlijntishauser/gener8/archive/v0.1.tar.gz',
     keywords=['templates', 'docker', 'Dockerfile'],
     classifiers=[],
     packages=[
