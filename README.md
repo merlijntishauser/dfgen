@@ -6,8 +6,7 @@ CLI tool for generating CD related templates like Dockerfiles
 ```
 gener8 [OPTIONS] COMMAND [ARGS]...
 
-  A little tool to generate commonly used ci/cd templates like Dockerfiles
-  and kubernetes service definitions.
+  A little tool to generate commonly used ci/cd templates like Dockerfiles.
 
 Options:
   -v, --verbose        enable/disable verbose messages
