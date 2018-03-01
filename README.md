@@ -1,6 +1,6 @@
 # Gener8
 
-CLI tool for generating CD related templates like Dockerfiles or kubernetes service templates
+CLI tool for generating CD related templates like Dockerfiles
 
 ### CLI options
 ```
@@ -16,7 +16,6 @@ Options:
 
 Commands:
   docker      Docker mode, this will create a Dockerfile
-  kubernetes  Kubernetes mode
 ```
 
 ## Development

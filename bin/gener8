@@ -39,7 +39,7 @@ CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 def cli(config, verbose, write_to_file):
     """
     A little tool to generate commonly used ci/cd templates
-    like Dockerfiles and kubernetes service definitions.
+    like Dockerfiles.
     """
     config.verbose = verbose
     config.write_to_file = write_to_file
@@ -91,17 +91,6 @@ def docker(config, linux_type):
         print(f"Dockerfile created: {file_created}")
         if enable_vcs:
             docker_file.copy_build_hook()
-
-
-@cli.command()
-@PASS_CONFIG
-def kubernetes(config):
-    """
-    Kubernetes mode
-    """
-    if config.verbose:
-        print("verbose mode on")
-    print('kubernetes mode')
 
 
 # pylint: disable=no-value-for-parameter
