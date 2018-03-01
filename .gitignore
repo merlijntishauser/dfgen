@@ -3,3 +3,5 @@ output/
 __pycache__/
 .cache
 .coverage
+.pypirc
+gener8.egg-info/
