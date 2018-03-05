@@ -4,4 +4,4 @@ __pycache__/
 .cache
 .coverage
 .pypirc
-gener8.egg-info/
+dfgen.egg-info/

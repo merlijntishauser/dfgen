@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-""" Gener8
+""" dfgen
 
 Handles the click calls and methods
 
 """
 import click
-from gener8.dockerfile import Dockerfile
+from dfgen.dockerfile import Dockerfile
 
 
 class Config(object):
@@ -54,9 +54,9 @@ def cli(config, verbose, write_to_file):
     default='alpine'
 )
 @PASS_CONFIG
-def docker(config, linux_type):
+def create(config, linux_type):
     """
-    Docker mode, this will create a Dockerfile
+    Create a dockerfile
     """
     docker_file = Dockerfile()
     default_image = docker_file.set_linux_type(linux_type)

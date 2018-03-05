@@ -3,27 +3,27 @@
 from setuptools import setup
 
 setup(
-    name='gener8',
+    name='dfgen',
     version='0.1',
     description='  A little tool to generate commonly used ci/cd templates like Dockerfiles.',
     author='Merlijn Tishauser',
     author_email='merlijn@gargleblaster.org',
-    url='https://github.com/merlijntishauser/gener8',
-    download_url='https://github.com/merlijntishauser/gener8/archive/v0.1.tar.gz',
+    url='https://github.com/merlijntishauser/dfgen',
+    download_url='https://github.com/merlijntishauser/dfgen/archive/v0.1.tar.gz',
     keywords=['templates', 'docker', 'Dockerfile'],
     classifiers=[],
     packages=[
-        'gener8',
-        'gener8.templates',
-        'gener8.templates.docker',
-        'gener8.scripts'
+        'dfgen',
+        'dfgen.templates',
+        'dfgen.templates.docker',
+        'dfgen.scripts'
     ],
     package_data={
-        'gener8.templates': ['*.jinja2'],
-        'gener8.templates.docker': ['*.jinja2'],
-        'gener8.scripts': ['*.sh']
+        'dfgen.templates': ['*.jinja2'],
+        'dfgen.templates.docker': ['*.jinja2'],
+        'dfgen.scripts': ['*.sh']
     },
-    scripts=['bin/gener8'],
+    scripts=['bin/dfgen'],
     install_requires=[
         "certifi",
         "click",

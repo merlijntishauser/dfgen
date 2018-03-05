@@ -10,7 +10,7 @@ class FileActions:
     """
     FileActions
 
-    Wrapper for filesystem related actions within gener8
+    Wrapper for filesystem related actions within dfgen
     """
     def __init__(self, path='output'):
         """

@@ -1,10 +1,10 @@
-# Gener8
+# dfgen
 
 CLI tool for generating CD related templates like Dockerfiles
 
 ### CLI options
 ```
-gener8 [OPTIONS] COMMAND [ARGS]...
+dfgen [OPTIONS] COMMAND [ARGS]...
 
   A little tool to generate commonly used ci/cd templates like Dockerfiles.
 

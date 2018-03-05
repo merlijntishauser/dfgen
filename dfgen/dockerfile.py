@@ -4,14 +4,14 @@ dockerfile
 import logging
 from jinja2 import Environment, PackageLoader, StrictUndefined
 from jinja2.exceptions import UndefinedError
-from gener8.file_actions import FileActions
+from dfgen.file_actions import FileActions
 
 
 class Dockerfile:
     """
     Dockerfile
 
-    All the dockerfile related functionality for gener8
+    All the dockerfile related functionality for dfgen
     """
 
     linux_type = 'alpine'
@@ -149,7 +149,7 @@ class Dockerfile:
         :return:
         """
         jinja_environment = Environment(
-            loader=PackageLoader('gener8', 'templates/docker'),
+            loader=PackageLoader('dfgen', 'templates/docker'),
             trim_blocks=True,
             keep_trailing_newline=True,
             undefined=StrictUndefined

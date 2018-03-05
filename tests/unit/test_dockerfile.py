@@ -1,5 +1,5 @@
 import pytest
-from gener8.dockerfile import Dockerfile
+from dfgen.dockerfile import Dockerfile
 
 
 def setup():
@@ -18,6 +18,7 @@ def test_set_command_splits_string_at_spaces():
     dockerfile = Dockerfile()
     dockerfile.set_command("should --be --splitted")
     assert dockerfile.template_variables["command"] == ['should', '--be', '--splitted']
+
 
 def test_set_description():
     dockerfile = Dockerfile()
