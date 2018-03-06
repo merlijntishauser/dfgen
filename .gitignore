@@ -5,3 +5,4 @@ __pycache__/
 .coverage
 .pypirc
 dfgen.egg-info/
+dist/

@@ -4,7 +4,7 @@ CLI tool for generating CD related templates like Dockerfiles
 
 ### CLI options
 ```
-dfgen [OPTIONS] COMMAND [ARGS]...
+Usage: dfgen [OPTIONS] COMMAND [ARGS]...
 
   A little tool to generate commonly used ci/cd templates like Dockerfiles.
 
@@ -14,7 +14,7 @@ Options:
   -h, --help           Show this message and exit.
 
 Commands:
-  docker      Docker mode, this will create a Dockerfile
+  create  Create a dockerfile
 ```
 
 ## Development
